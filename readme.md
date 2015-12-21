@@ -1,24 +1,24 @@
-# gitbot [![NPM version](https://img.shields.io/npm/v/gitbot.svg)](https://www.npmjs.com/package/gitbot)
+# githubbot [![NPM version](https://img.shields.io/npm/v/githubbot.svg)](https://www.npmjs.com/package/githubbot)
 
-> Base bot for making github bots.
+> Simple github bot with pre-configured methods for handling github webhook payloads.
 
 ## Install
 Install with [npm](https://www.npmjs.com/)
 
 ```sh
-$ npm i gitbot --save
+$ npm i githubbot --save
 ```
 
 ## Usage
 
 ```js
-var bot = require('gitbot');
+var bot = require('githubbot');
 ```
 
 ## API
 
-### [Gitbot](index.js#L23)
-Create a new instance of a Gitbot with provided options.
+### [GithubBot](index.js#L27)
+Create a new instance of a GithubBot with provided options.
 
 
 **Params**
@@ -30,79 +30,14 @@ Create a new instance of a Gitbot with provided options.
 
 
 ```js
-var bot = new Gitbot();
-```
-
-
-### [.on](index.js#L50)
-Register an event handler to handle github webhook payloads.
-
-
-**Params**
-
-* `event` **{String}**: Event type to add handler for.    
-* `handler` **{Function}**: Handler function to handle payload when event is triggered.    
-* `returns` **{Function}**: Returns original handler to make it easier to remove handlers later.  
-
-**Example**
-
-
-
-```js
-var issueHandler = bot.on('issue', function(payload, cb) {
-  if (payload.action !== 'open') {
-    return cb(null, {});
-  }
-  // do some work
-  cb(null, {});
-});
-```
-
-
-### [.off](index.js#L69)
-Remove event handler for specified event or in all events.
-
-
-**Params**
-
-* `event` **{String}**: Event type to remove handler from.    
-* `handler` **{Function}**: Original handler function to remove.    
-* `returns` **{Function}**: Original handler function.  
-
-**Example**
-
-
-
-```js
-bot.off('issue', issueHandler);
-```
-
-
-### [.handle](index.js#L106)
-Handle a payload from the github api.
-
-
-**Params**
-
-* `event` **{String}**: Event type from github webhooks to handle.    
-* `payload` **{Object}**: Payload object from github webhooks.    
-* `cb` **{Function}**: Callback to notify call when finished handling payload.    
-
-**Example**
-
-
-
-```js
-bot.handle('issue', payload, function(err, results) {
-  if (err) return console.error(err);
-  console.log(results);
-});
+var bot = new GithubBot();
 ```
 
 
 
 ## Related projects
-
+* [base-bot](https://www.npmjs.com/package/base-bot): Simple bot that knows how to handle events when told too. Use base bot to… [more](https://www.npmjs.com/package/base-bot) | [homepage](https://github.com/doowb/base-bot)
+* [base-methods](https://www.npmjs.com/package/base-methods): base-methods is the foundation for creating modular, unit testable and highly pluggable node.js applications, starting… [more](https://www.npmjs.com/package/base-methods) | [homepage](https://github.com/jonschlinkert/base-methods)
 
 ## Running tests
 Install dev dependencies:
@@ -112,7 +47,7 @@ $ npm i -d && npm test
 ```
 
 ## Contributing
-Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/doowb/gitbot/issues/new).
+Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/doowb/githubbot/issues/new).
 
 ## Author
 **Brian Woodward**

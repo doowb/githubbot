@@ -1,5 +1,5 @@
 /*!
- * gitbot <https://github.com/doowb/gitbot>
+ * githubbot <https://github.com/doowb/githubbot>
  *
  * Copyright (c) 2015 .
  * Licensed under the MIT license.
@@ -9,22 +9,22 @@
 
 /* deps:mocha */
 var assert = require('assert');
-var Gitbot = require('./');
+var GithubBot = require('../');
 
-describe('gitbot', function () {
+describe('base', function () {
   it('should expose a function', function () {
-    assert(typeof Gitbot === 'function');
+    assert(typeof GithubBot === 'function');
   });
 
-  it('create a new instance of Gitbot', function () {
-    var bot = new Gitbot();
-    assert(bot instanceof Gitbot);
+  it('create a new instance of GithubBot', function () {
+    var bot = new GithubBot();
+    assert(bot instanceof GithubBot);
     assert(typeof bot.options === 'object');
     assert(typeof bot.handle === 'function');
   });
 
   it('should handle an event', function(done) {
-    var bot = new Gitbot();
+    var bot = new GithubBot();
     bot.on('issue', function(payload, cb) {
       payload.calls++;
       cb(null, payload);
@@ -38,7 +38,7 @@ describe('gitbot', function () {
   });
 
   it('should call multiple handlers for an event', function(done) {
-    var bot = new Gitbot();
+    var bot = new GithubBot();
     bot.on('issue', function(payload, cb) {
       payload.handlers.push('handler 1');
       payload.calls++;
@@ -63,7 +63,7 @@ describe('gitbot', function () {
   });
 
   it('should add specific `on` and `handle` methods', function(done) {
-    var bot = new Gitbot();
+    var bot = new GithubBot();
     bot.handler('issue');
     assert(typeof bot.onIssue === 'function');
     assert(typeof bot.handleIssue === 'function');
@@ -95,7 +95,7 @@ describe('gitbot', function () {
   });
 
   it('should add specific `on` and `handle` methods for multiple methods', function(done) {
-    var bot = new Gitbot();
+    var bot = new GithubBot();
     bot.handlers(['issue', 'commit']);
     assert(typeof bot.onIssue === 'function');
     assert(typeof bot.handleIssue === 'function');

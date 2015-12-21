@@ -1,12 +1,12 @@
 {
-  "name": "gitbot",
-  "description": "Base bot for making github bots.",
+  "name": "githubbot",
+  "description": "Simple github bot with pre-configured methods for handling github webhook payloads.",
   "version": "0.1.0",
-  "homepage": "https://github.com/doowb/gitbot",
+  "homepage": "https://github.com/doowb/githubbot",
   "author": "Brian Woodward (https://github.com/doowb)",
-  "repository": "doowb/gitbot",
+  "repository": "doowb/githubbot",
   "bugs": {
-    "url": "https://github.com/doowb/gitbot/issues"
+    "url": "https://github.com/doowb/githubbot/issues"
   },
   "license": "MIT",
   "files": [
@@ -20,7 +20,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "async": "^1.5.0"
+    "base-bot": "^0.1.0"
   },
   "devDependencies": {
     "mocha": "^2.3.4"
@@ -28,7 +28,10 @@
   "keywords": [],
   "verb": {
     "related": {
-      "list": []
+      "list": [
+        "base-methods",
+        "base-bot"
+      ]
     }
   }
 }
