@@ -19,10 +19,16 @@
   "scripts": {
     "test": "mocha"
   },
-  "dependencies": {},
-  "devDependencies": {
-    "mocha": "*",
-    "should": "*"
+  "dependencies": {
+    "async": "^1.5.0"
   },
-  "keywords": []
+  "devDependencies": {
+    "mocha": "^2.3.4"
+  },
+  "keywords": [],
+  "verb": {
+    "related": {
+      "list": []
+    }
+  }
 }
