@@ -1,0 +1,28 @@
+{
+  "name": "gitbot",
+  "description": "Base bot for making github bots.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/doowb/gitbot",
+  "author": "Brian Woodward (https://github.com/doowb)",
+  "repository": "doowb/gitbot",
+  "bugs": {
+    "url": "https://github.com/doowb/gitbot/issues"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  },
+  "keywords": []
+}
