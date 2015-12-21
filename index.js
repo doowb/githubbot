@@ -32,7 +32,8 @@ function Gitbot(options) {
 Base.extend(Gitbot);
 
 /**
- * Handle a payload from the github api.
+ * Handle a payload from the github api. The `payload` will be passed to all registered handlers. Handlers may
+ * modify the `payload` and return it in their `callback`. The aggregated results will be returned in the `handle` `callback`.
  *
  * ```js
  * bot.handle('issue', payload, function(err, results) {
@@ -56,6 +57,75 @@ Gitbot.prototype.handle = function(event, payload, cb) {
     return handler.call(this, payload, next);
   }.bind(this), cb);
 };
+
+/**
+ * Add a specific `on` and `handle` methods for an event.
+ *
+ * ```js
+ * bot.handler('issue');
+ * bot.onIssue(function(payload, cb) { cb(null, payload); });
+ * bot.handleIssue(payload, function(err, results) {
+ *   if (err) return console.error(err);
+ *   console.log(results);
+ * });
+ * ```
+ *
+ * @param  {String} `method` Name of the methods to add.
+ * @return {Object} `this` for chaining.
+ * @api public
+ */
+
+Gitbot.prototype.handler = function(method) {
+  var name = namify(method);
+  this.define('on' + name, function(fn) {
+    return this.on(method, fn);
+  });
+
+  this.define('handle' + name, function(payload, cb) {
+    this.handle(method, payload, cb);
+  });
+  return this;
+};
+
+/**
+ * Add a specific `on` and `handle` methods for an array of events.
+ *
+ * ```js
+ * bot.handlers(['issue', 'commit']);
+ *
+ * bot.onIssue(function(payload, cb) { cb(null, payload); });
+ * bot.onCommit(function(payload, cb) { cb(null, payload); });
+ *
+ * bot.handleIssue(payload, function(err, results) {
+ *   if (err) return console.error(err);
+ *   console.log(results);
+ * });
+ *
+ * bot.handleCommit(payload, function(err, results) {
+ *   if (err) return console.error(err);
+ *   console.log(results);
+ * });
+ * ```
+ *
+ * @param  {String|Array} `methods` Array of method names to add.
+ * @return {Object} `this` for chaining.
+ * @api public
+ */
+
+Gitbot.prototype.handlers = function(methods) {
+  methods = arrayify(methods);
+  methods.forEach(this.handler.bind(this));
+  return this;
+};
+
+function namify(name) {
+  return name.substring(0, 1).toUpperCase() + name.substring(1);
+}
+
+function arrayify(obj) {
+  if (!obj) return [];
+  return Array.isArray(obj) ? obj : [obj];
+}
 
 /**
  * Exposes `Gitbot`.
