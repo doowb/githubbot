@@ -8,10 +8,7 @@
 'use strict';
 
 var BaseBot = require('base-bot');
-var methods = [
-  'issue',
-  'commit'
-];
+var events = require('./lib/events');
 
 /**
  * Create a new instance of a GithubBot with provided options.
@@ -30,7 +27,7 @@ function GithubBot(options) {
   }
   BaseBot.call(this, options);
 
-  this.handlers(methods);
+  this.handlers(events);
 }
 
 BaseBot.extend(GithubBot);
