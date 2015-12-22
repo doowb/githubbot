@@ -10,7 +10,8 @@
   },
   "license": "MIT",
   "files": [
-    "index.js"
+    "index.js",
+    "lib/"
   ],
   "main": "index.js",
   "engines": {
@@ -27,6 +28,9 @@
   },
   "keywords": [],
   "verb": {
+    "helpers": {
+      "foo": "./docs/helpers/foo"
+    },
     "related": {
       "list": [
         "base-methods",
