@@ -38,299 +38,508 @@ var bot = new GithubBot();
 
 ## Events
 
-````js
-/*!
- * githubbot <https://github.com/doowb/githubbot>
- *
- * Copyright (c) 2015, Brian Woodward.
- * Licensed under the MIT License.
- */
+Array of event types from https://developer.github.com/v3/activity/events/types/
 
-'use strict';
+### commit-comment
 
-/**
- * Array of event types from https://developer.github.com/v3/activity/events/types/
- */
+Github webhook `commit-comment` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#commitcommentevent).
 
-module.exports = [
+Listen for this event registering a handler with the `.onCommitComment(fn)` method.
+Handle events by calling the `.handleCommitComment(payload)` method.
 
-  /**
-   * Github webhook `commit-comment` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#commitcommentevent).
-   *
-   * Listen for this event registering a handler with the `.onCommitComment(fn)` method.
-   * Handle events by calling the `.handleCommitComment(payload)` method.
-   */
+```js
+// listen for commit-comment events.
+bot.onCommitComment(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
 
-  'commit-comment',
+// handle a payload for the commit-comment event.
+bot.handleCommitComment(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### create
 
-  /**
-   * Github webhook `create` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#createevent).
-   *
-   * Listen for this event registering a handler with the `.onCreate(fn)` method.
-   * Handle events by calling the `.handleCreate(payload)` method.
-   */
+Github webhook `create` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#createevent).
 
-  'create',
+Listen for this event registering a handler with the `.onCreate(fn)` method.
+Handle events by calling the `.handleCreate(payload)` method.
 
-  /**
-   * Github webhook `delete` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#deleteevent).
-   *
-   * Listen for this event registering a handler with the `.onDelete(fn)` method.
-   * Handle events by calling the `.handleDelete(payload)` method.
-   */
+```js
+// listen for create events.
+bot.onCreate(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
 
-  'delete',
+// handle a payload for the create event.
+bot.handleCreate(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### delete
 
-  /**
-   * Github webhook `deployment` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#deploymentevent).
-   *
-   * Listen for this event registering a handler with the `.onDeployment(fn)` method.
-   * Handle events by calling the `.handleDeployment(payload)` method.
-   */
+Github webhook `delete` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#deleteevent).
 
-  'deployment',
+Listen for this event registering a handler with the `.onDelete(fn)` method.
+Handle events by calling the `.handleDelete(payload)` method.
 
-  /**
-   * Github webhook `deployment-status` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#deploymentstatusevent).
-   *
-   * Listen for this event registering a handler with the `.onDeploymentStatus(fn)` method.
-   * Handle events by calling the `.handleDeploymentStatus(payload)` method.
-   */
+```js
+// listen for delete events.
+bot.onDelete(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
 
-  'deployment-status',
+// handle a payload for the delete event.
+bot.handleDelete(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### deployment
 
-  /**
-   * Github webhook `download` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#downloadevent).
-   *
-   * Listen for this event registering a handler with the `.onDownload(fn)` method.
-   * Handle events by calling the `.handleDownload(payload)` method.
-   */
+Github webhook `deployment` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#deploymentevent).
 
-  'download',
+Listen for this event registering a handler with the `.onDeployment(fn)` method.
+Handle events by calling the `.handleDeployment(payload)` method.
 
-  /**
-   * Github webhook `follow` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#followevent).
-   *
-   * Listen for this event registering a handler with the `.onFollow(fn)` method.
-   * Handle events by calling the `.handleFollow(payload)` method.
-   */
+```js
+// listen for deployment events.
+bot.onDeployment(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
 
-  'follow',
+// handle a payload for the deployment event.
+bot.handleDeployment(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### deployment-status
 
-  /**
-   * Github webhook `fork` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#forkevent).
-   *
-   * Listen for this event registering a handler the `.onFork(fn)` method.
-   * Handle events by calling the `.handleFork(payload)` method.
-   */
+Github webhook `deployment-status` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#deploymentstatusevent).
 
-  'fork',
+Listen for this event registering a handler with the `.onDeploymentStatus(fn)` method.
+Handle events by calling the `.handleDeploymentStatus(payload)` method.
 
-  /**
-   * Github webhook `fork-apply` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#forkapplyevent).
-   *
-   * Listen for this event registering a handler with the `.onForkApply(fn)` method.
-   * Handle events by calling the `.handleForkApply(payload)` method.
-   */
+```js
+// listen for deployment-status events.
+bot.onDeploymentStatus(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
 
-  'fork-apply',
+// handle a payload for the deployment-status event.
+bot.handleDeploymentStatus(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### download
 
-  /**
-   * Github webhook `gist` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#gistevent).
-   *
-   * Listen for this event registering a handler the `.onGist(fn)` method.
-   * Handle events by calling the `.handleGist(payload)` method.
-   */
+Github webhook `download` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#downloadevent).
 
-  'gist',
+Listen for this event registering a handler with the `.onDownload(fn)` method.
+Handle events by calling the `.handleDownload(payload)` method.
 
-  /**
-   * Github webhook `gollum` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#gollumevent).
-   *
-   * Listen for this event registering a handler with the `.onGollum(fn)` method.
-   * Handle events by calling the `.handleGollum(payload)` method.
-   */
+```js
+// listen for download events.
+bot.onDownload(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
 
-  'gollum',
+// handle a payload for the download event.
+bot.handleDownload(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### follow
 
-  /**
-   * Github webhook `issue-comment` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#issuecommentevent).
-   *
-   * Listen for this event registering a handler with the `.onIssueComment(fn)` method.
-   * Handle events by calling the `.handleIssueComment(payload)` method.
-   */
+Github webhook `follow` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#followevent).
 
-  'issue-comment',
+Listen for this event registering a handler with the `.onFollow(fn)` method.
+Handle events by calling the `.handleFollow(payload)` method.
 
-  /**
-   * Github webhook `issues` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#issuesevent).
-   *
-   * Listen for this event registering a handler with the `.onIssues(fn)` method.
-   * Handle events by calling the `.handleIssues(payload)` method.
-   */
+```js
+// listen for follow events.
+bot.onFollow(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
 
-  'issues',
+// handle a payload for the follow event.
+bot.handleFollow(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### fork
 
-  /**
-   * Github webhook `member` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#memberevent).
-   *
-   * Listen for this event registering a handler with the `.onMember(fn)` method.
-   * Handle events by calling the `.handleMember(payload)` method.
-   */
+Github webhook `fork` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#forkevent).
 
-  'member',
+Listen for this event registering a handler the `.onFork(fn)` method.
+Handle events by calling the `.handleFork(payload)` method.
 
-  /**
-   * Github webhook `membership` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#membershipevent).
-   *
-   * Listen for this event registering a handler with the `.onMembership(fn)` method.
-   * Handle events by calling the `.handleMembership(payload)` method.
-   */
+```js
+// listen for fork events.
+bot.onFork(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
 
-  'membership',
+// handle a payload for the fork event.
+bot.handleFork(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### fork-apply
 
-  /**
-   * Github webhook `page-build` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#pagebuildevent).
-   *
-   * Listen for this event registering a handler with the `.onPageBuild(fn)` method.
-   * Handle events by calling the `.handlePageBuild(payload)` method.
-   */
+Github webhook `fork-apply` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#forkapplyevent).
 
-  'page-build',
+Listen for this event registering a handler with the `.onForkApply(fn)` method.
+Handle events by calling the `.handleForkApply(payload)` method.
 
-  /**
-   * Github webhook `public` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#publicevent).
-   *
-   * Listen for this event registering a handler with the `.onPublic(fn)` method.
-   * Handle events by calling the `.handlePublic(payload)` method.
-   */
+```js
+// listen for fork-apply events.
+bot.onForkApply(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
 
-  'public',
+// handle a payload for the fork-apply event.
+bot.handleForkApply(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### gist
 
-  /**
-   * Github webhook `pull-request` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#pullrequestevent).
-   *
-   * Listen for this event registering a handler with `on-puthe `.on-pull-request(fn)` method.
-   * Handle events by calling the `.handle-pull-request(payload)` method.
-   */
+Github webhook `gist` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#gistevent).
 
-  'pull-request',
+Listen for this event registering a handler the `.onGist(fn)` method.
+Handle events by calling the `.handleGist(payload)` method.
 
-  /**
-   * Github webhook `pull-request-review-comment` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#pullrequestreviewcommentevent).
-   *
-   * Listen for this event registering a handler with the `.onPullRequestReviewComment(fn)` method.
-   * Handle events by calling the `.handlePullRequestReviewComment(payload)` method.
-   */
+```js
+// listen for gist events.
+bot.onGist(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
 
-  'pull-request-review-comment',
+// handle a payload for the gist event.
+bot.handleGist(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### gollum
 
-  /**
-   * Github webhook `push` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#pushevent).
-   *
-   * Listen for this event registering a handler the `.onPush(fn)` method.
-   * Handle events by calling the `.handlePush(payload)` method.
-   */
+Github webhook `gollum` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#gollumevent).
 
-  'push',
+Listen for this event registering a handler with the `.onGollum(fn)` method.
+Handle events by calling the `.handleGollum(payload)` method.
 
-  /**
-   * Github webhook `release` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#releaseevent).
-   *
-   * Listen for this event registering a handler with the `.onRelease(fn)` method.
-   * Handle events by calling the `.handleRelease(payload)` method.
-   */
+```js
+// listen for gollum events.
+bot.onGollum(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
 
-  'release',
+// handle a payload for the gollum event.
+bot.handleGollum(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### issue-comment
 
-  /**
-   * Github webhook `repository` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#repositoryevent).
-   *
-   * Listen for this event registering a handler with the `.onRepository(fn)` method.
-   * Handle events by calling the `.handleRepository(payload)` method.
-   */
+Github webhook `issue-comment` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#issuecommentevent).
 
-  'repository',
+Listen for this event registering a handler with the `.onIssueComment(fn)` method.
+Handle events by calling the `.handleIssueComment(payload)` method.
 
-  /**
-   * Github webhook `status` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#statusevent).
-   *
-   * Listen for this event registering a handler with the `.onStatus(fn)` method.
-   * Handle events by calling the `.handleStatus(payload)` method.
-   */
+```js
+// listen for issue-comment events.
+bot.onIssueComment(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
 
-  'status',
+// handle a payload for the issue-comment event.
+bot.handleIssueComment(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### issues
 
-  /**
-   * Github webhook `team-add` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#teamaddevent).
-   *
-   * Listen for this event registering a handler with the `.onTeamAdd(fn)` method.
-   * Handle events by calling the `.handleTeamAdd(payload)` method.
-   */
+Github webhook `issues` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#issuesevent).
 
-  'team-add',
+Listen for this event registering a handler with the `.onIssues(fn)` method.
+Handle events by calling the `.handleIssues(payload)` method.
 
-  /**
-   * Github webhook `watch` event.
-   * Find more information about the payload for this
-   * event [here](https://developer.github.com/v3/activity/events/types/#watchevent).
-   *
-   * Listen for this event registering a handler with the `.onWatch(fn)` method.
-   * Handle events by calling the `.handleWatch(payload)` method.
-   */
+```js
+// listen for issues events.
+bot.onIssues(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
 
-  'watch'
-];
+// handle a payload for the issues event.
+bot.handleIssues(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### member
 
-````
+Github webhook `member` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#memberevent).
+
+Listen for this event registering a handler with the `.onMember(fn)` method.
+Handle events by calling the `.handleMember(payload)` method.
+
+```js
+// listen for member events.
+bot.onMember(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
+
+// handle a payload for the member event.
+bot.handleMember(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### membership
+
+Github webhook `membership` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#membershipevent).
+
+Listen for this event registering a handler with the `.onMembership(fn)` method.
+Handle events by calling the `.handleMembership(payload)` method.
+
+```js
+// listen for membership events.
+bot.onMembership(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
+
+// handle a payload for the membership event.
+bot.handleMembership(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### page-build
+
+Github webhook `page-build` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#pagebuildevent).
+
+Listen for this event registering a handler with the `.onPageBuild(fn)` method.
+Handle events by calling the `.handlePageBuild(payload)` method.
+
+```js
+// listen for page-build events.
+bot.onPageBuild(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
+
+// handle a payload for the page-build event.
+bot.handlePageBuild(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### public
+
+Github webhook `public` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#publicevent).
+
+Listen for this event registering a handler with the `.onPublic(fn)` method.
+Handle events by calling the `.handlePublic(payload)` method.
+
+```js
+// listen for public events.
+bot.onPublic(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
+
+// handle a payload for the public event.
+bot.handlePublic(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### pull-request
+
+Github webhook `pull-request` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#pullrequestevent).
+
+Listen for this event registering a handler with `on-puthe `.on-pull-request(fn)` method.
+Handle events by calling the `.handle-pull-request(payload)` method.
+
+```js
+// listen for pull-request events.
+bot.onPullRequest(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
+
+// handle a payload for the pull-request event.
+bot.handlePullRequest(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### pull-request-review-comment
+
+Github webhook `pull-request-review-comment` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#pullrequestreviewcommentevent).
+
+Listen for this event registering a handler with the `.onPullRequestReviewComment(fn)` method.
+Handle events by calling the `.handlePullRequestReviewComment(payload)` method.
+
+```js
+// listen for pull-request-review-comment events.
+bot.onPullRequestReviewComment(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
+
+// handle a payload for the pull-request-review-comment event.
+bot.handlePullRequestReviewComment(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### push
+
+Github webhook `push` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#pushevent).
+
+Listen for this event registering a handler the `.onPush(fn)` method.
+Handle events by calling the `.handlePush(payload)` method.
+
+```js
+// listen for push events.
+bot.onPush(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
+
+// handle a payload for the push event.
+bot.handlePush(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### release
+
+Github webhook `release` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#releaseevent).
+
+Listen for this event registering a handler with the `.onRelease(fn)` method.
+Handle events by calling the `.handleRelease(payload)` method.
+
+```js
+// listen for release events.
+bot.onRelease(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
+
+// handle a payload for the release event.
+bot.handleRelease(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### repository
+
+Github webhook `repository` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#repositoryevent).
+
+Listen for this event registering a handler with the `.onRepository(fn)` method.
+Handle events by calling the `.handleRepository(payload)` method.
+
+```js
+// listen for repository events.
+bot.onRepository(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
+
+// handle a payload for the repository event.
+bot.handleRepository(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### status
+
+Github webhook `status` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#statusevent).
+
+Listen for this event registering a handler with the `.onStatus(fn)` method.
+Handle events by calling the `.handleStatus(payload)` method.
+
+```js
+// listen for status events.
+bot.onStatus(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
+
+// handle a payload for the status event.
+bot.handleStatus(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### team-add
+
+Github webhook `team-add` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#teamaddevent).
+
+Listen for this event registering a handler with the `.onTeamAdd(fn)` method.
+Handle events by calling the `.handleTeamAdd(payload)` method.
+
+```js
+// listen for team-add events.
+bot.onTeamAdd(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
+
+// handle a payload for the team-add event.
+bot.handleTeamAdd(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
+### watch
+
+Github webhook `watch` event. Find more information about the payload for this event [here](https://developer.github.com/v3/activity/events/types/#watchevent).
+
+Listen for this event registering a handler with the `.onWatch(fn)` method.
+Handle events by calling the `.handleWatch(payload)` method.
+
+```js
+// listen for watch events.
+bot.onWatch(function(payload, cb) {
+  // handle payload
+  cb(null, payload);
+});
+
+// handle a payload for the watch event.
+bot.handleWatch(payload, function(err, results) {
+  if (err) return console.log(err);
+  console.log(results);
+});
+```
 
 ## Related projects
 * [base-bot](https://www.npmjs.com/package/base-bot): Simple bot that knows how to handle events when told too. Use base bot to… [more](https://www.npmjs.com/package/base-bot) | [homepage](https://github.com/doowb/base-bot)
