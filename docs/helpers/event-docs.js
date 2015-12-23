@@ -46,7 +46,8 @@ function makeExample(name) {
     '  if (err) return console.log(err);',
     '  console.log(results);',
     '});',
-    '```'
+    '```',
+    ''
   ].join('\n');
 }
 
