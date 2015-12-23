@@ -28,6 +28,7 @@ function GithubBot(options) {
   BaseBot.call(this, options);
 
   this.handlers(events);
+  this.define('events', events);
 }
 
 BaseBot.extend(GithubBot);
