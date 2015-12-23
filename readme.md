@@ -1,7 +1,10 @@
 # githubbot [![NPM version](https://img.shields.io/npm/v/githubbot.svg)](https://www.npmjs.com/package/githubbot)
 
-> Simple github bot with pre-configured methods for handling github webhook payloads.
+> Starting point for registering event handlers and handling payloads coming from github webhooks. Allows usage of plugins to extend functionality for individual implementations.
 
+The main purpose of this module is to create a starting point for registering github webhook event handlers and triggering the handlers with a payload.
+
+The actual web server pieces of handling github webhooks **are not** included in this module. See [related-projects](#related-projects) for usage with web servers and other implementations.
 
 ## Install
 Install with [npm](https://www.npmjs.com/)
