@@ -1,6 +1,6 @@
 {
   "name": "githubbot",
-  "description": "Simple github bot with pre-configured methods for handling github webhook payloads.",
+  "description": "Starting point for registering event handlers and handling payloads coming from github webhooks. Allows usage of plugins to extend functionality for individual implementations.",
   "version": "0.1.0",
   "homepage": "https://github.com/doowb/githubbot",
   "author": "Brian Woodward (https://github.com/doowb)",
@@ -24,12 +24,13 @@
     "base-bot": "^0.1.0"
   },
   "devDependencies": {
+    "js-comments": "^0.5.4",
     "mocha": "^2.3.4"
   },
   "keywords": [],
   "verb": {
     "helpers": {
-      "foo": "./docs/helpers/foo"
+      "eventDocs": "./docs/helpers/event-docs"
     },
     "related": {
       "list": [
